@@ -1,5 +1,5 @@
 <div align="center">
-  <h3 align="center">GATEWAY</h3>
+  <h3 align="center">VIEW</h3>
 
   <p align="center">
     Microservice. Part of <a href="https://github.com/kqlqk/BeHealthy">BeHealthy</a>
