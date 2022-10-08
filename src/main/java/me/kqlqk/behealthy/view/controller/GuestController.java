@@ -1,6 +1,7 @@
 package me.kqlqk.behealthy.view.controller;
 
 import me.kqlqk.behealthy.view.dto.LoginDTO;
+import me.kqlqk.behealthy.view.dto.RegistrationDTO;
 import me.kqlqk.behealthy.view.feign_client.GatewayClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,6 +45,33 @@ public class GuestController {
         } catch (RuntimeException e) {
             model.addAttribute("exception", e.getMessage());
             return "guest/LoginPage";
+        }
+
+        return "redirect:/me";
+    }
+
+    @GetMapping("/registration")
+    public String getRegistrationPage(Model model) {
+        model.addAttribute("registrationDTO", new RegistrationDTO());
+
+        return "guest/RegistrationPage";
+    }
+
+    @PostMapping("/registration")
+    public String registration(@ModelAttribute("registrationDTO") @Valid RegistrationDTO registrationDTO,
+                               BindingResult bindingResult,
+                               Model model) {
+        if (bindingResult.hasErrors() || !registrationDTO.getConfirmPassword().equals(registrationDTO.getPassword())) {
+            return "guest/RegistrationPage";
+        }
+
+        try {
+            gatewayClient.registration(registrationDTO);
+        } catch (RuntimeException e) {
+            if (e.getMessage().equals("User with email = " + registrationDTO.getEmail() + " already exists")) {
+                model.addAttribute("emailException", "Email already taken");
+            }
+            return "guest/RegistrationPage";
         }
 
         return "redirect:/me";
