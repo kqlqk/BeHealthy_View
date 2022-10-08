@@ -37,19 +37,23 @@
 
 <section class="w-100 p-3 d-flex justify-content-center pb-4">
     <form th:method="post" th:action="@{/login}" th:object="${loginDTO}" style="width: 23rem;">
+        <div th:style="'color: #ff0000'" th:if="${exception != null}" th:text="${exception}"></div>
         <div class="form-floating mb-4">
-            <input th:field="*{email}" type="text" id="email" class="form-control" placeholder="Enter email">
+            <input th:field="*{email}" type="text" id="email" class="form-control" placeholder="Enter email"
+                   th:style="${#fields.hasErrors('email') || exception != null} ? 'border-color: #ff0000' : 'border-color: #d3d3d3'">
             <label class="form-label" for="email">Email address</label>
+            <div th:style="'color: #ff0000'" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
         </div>
 
         <div class="form-floating mb-4">
             <input th:field="*{password}" type="password" id="password" class="form-control"
-                   placeholder="Enter password">
+                   placeholder="Enter password"
+                   th:style="${#fields.hasErrors('password') || exception != null} ? 'border-color: #ff0000' : 'border-color: #d3d3d3'">
             <label class="form-label" for="password">Password</label>
+            <div th:style="'color: #ff0000'" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
         </div>
 
         <button type="submit" class="btn btn-outline-dark me-2">Sign in</button>
-
         <div class="text-center">
             <p>Not a member? <a th:href="@{/registration}">Register</a></p>
         </div>
