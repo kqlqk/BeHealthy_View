@@ -1,4 +1,4 @@
-package me.kqlqk.behealthy.view.dto;
+package me.kqlqk.behealthy.view.dto.auth;
 
 import lombok.Data;
 
