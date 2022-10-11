@@ -8,7 +8,40 @@
 
 <body>
 <header th:insert="header :: header"></header>
-<div th:if="${setCondition == true}" th:text="'OK'"></div>
+
+<div th:if="${setCondition == true}">
+    <div class="text-center m-5">
+        <h1 class="fw-bold">USER CONDITION</h1>
+        <p class="text-muted">Your actual condition</p>
+    </div>
+
+    <section class="row w-100 p-3 d-flex justify-content-center pb-4  text-center h2">
+        <div class="fw-bold">
+            <th:block th:switch="${condition.gender}">
+                <div th:case="'MALE'" th:text="'Gender: Male'"></div>
+                <div th:case="'FEMALE'" th:text="'Gender: Female'"></div>
+            </th:block>
+        </div>
+        <div class="fw-bold" th:text="${'Age: ' + condition.age}"></div>
+        <div class="fw-bold" th:text="${'Height: ' + condition.height + 'cm'}"></div>
+        <div class="fw-bold" th:text="${'Weight: ' + condition.weight + 'kg'}"></div>
+        <div class="fw-bold">
+            <th:block th:switch="${condition.intensity}">
+                <div th:case="'MIN'" th:text="'Intensity: A little'"></div>
+                <div th:case="'AVG'" th:text="'Intensity: Average'"></div>
+                <div th:case="'MAX'" th:text="'Intensity: A lot'"></div>
+            </th:block>
+        </div>
+        <div class="fw-bold">
+            <th:block th:switch="${condition.goal}">
+                <div th:case="'LOSE'" th:text="'Goal: Lose weight'"></div>
+                <div th:case="'MAINTAIN'" th:text="'Goal: Maintain weight'"></div>
+                <div th:case="'GAIN'" th:text="'Goal: Gain weight'"></div>
+            </th:block>
+        </div>
+    </section>
+
+</div>
 
 <div th:if="${setCondition == false}">
 
@@ -22,55 +55,61 @@
         <form th:method="post" th:action="@{/me/{id}(id=${userId})}" th:object="${condition}" style="width: 23rem;">
             <input type="hidden" name="id" th:value="0">
 
+            <div th:style="'color: #ff0000'" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></div>
             <div class="form mb-4">
-                <select class="form-select" th:field="*{gender}">
+                <select class="form-select" th:field="*{gender}"
+                        th:style="${#fields.hasErrors('gender')} ? 'border-color: #ff0000' : 'border-color: #d3d3d3'">
                     <option th:value="null" selected>Select your gender</option>
                     <option th:value="MALE">Male</option>
                     <option th:value="FEMALE">Female</option>
                 </select>
             </div>
-            <div th:style="'color: #ff0000'" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></div>
 
+            <div th:style="'color: #ff0000'" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>
             <div class="form-floating mb-4">
                 <input th:field="*{age}" type="text" id="age" class="form-control"
-                       placeholder="Enter age">
+                       placeholder="Enter age" maxlength="2"
+                       th:style="${#fields.hasErrors('age')} ? 'border-color: #ff0000' : 'border-color: #d3d3d3'">
                 <label class="form-label" for="age">Age</label>
             </div>
-            <div th:style="'color: #ff0000'" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>
 
+            <div th:style="'color: #ff0000'" th:if="${#fields.hasErrors('height')}" th:errors="*{height}"></div>
             <div class="form-floating mb-4">
                 <input th:field="*{height}" type="text" id="height" class="form-control"
-                       placeholder="Enter height">
+                       placeholder="Enter height" maxlength="3"
+                       th:style="${#fields.hasErrors('height')} ? 'border-color: #ff0000' : 'border-color: #d3d3d3'">
                 <label class="form-label" for="height">Height</label>
             </div>
-            <div th:style="'color: #ff0000'" th:if="${#fields.hasErrors('height')}" th:errors="*{height}"></div>
 
+            <div th:style="'color: #ff0000'" th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}"></div>
             <div class="form-floating mb-4">
                 <input th:field="*{weight}" type="text" id="weight" class="form-control"
-                       placeholder="Enter weight">
+                       placeholder="Enter weight" maxlength="3"
+                       th:style="${#fields.hasErrors('weight')} ? 'border-color: #ff0000' : 'border-color: #d3d3d3'">
                 <label class="form-label" for="weight">Weight</label>
             </div>
-            <div th:style="'color: #ff0000'" th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}"></div>
 
+            <div th:style="'color: #ff0000'" th:if="${#fields.hasErrors('intensity')}" th:errors="*{intensity}"></div>
             <div class="form mb-4">
-                <select class="form-select" th:field="*{intensity}">
+                <select class="form-select" th:field="*{intensity}"
+                        th:style="${#fields.hasErrors('intensity')} ? 'border-color: #ff0000' : 'border-color: #d3d3d3'">
                     <option th:value="null" selected>Select your intensity</option>
                     <option th:value="MIN">A little</option>
                     <option th:value="AVG">Average</option>
                     <option th:value="MAX">A lot</option>
                 </select>
             </div>
-            <div th:style="'color: #ff0000'" th:if="${#fields.hasErrors('intensity')}" th:errors="*{intensity}"></div>
 
+            <div th:style="'color: #ff0000'" th:if="${#fields.hasErrors('goal')}" th:errors="*{goal}"></div>
             <div class="form mb-4">
-                <select class="form-select" th:field="*{goal}">
+                <select class="form-select" th:field="*{goal}"
+                        th:style="${#fields.hasErrors('goal')} ? 'border-color: #ff0000' : 'border-color: #d3d3d3'">
                     <option th:value="null" selected>Select your goal</option>
                     <option th:value="LOSE">Lose weight</option>
                     <option th:value="MAINTAIN">Maintain weight</option>
                     <option th:value="GAIN">Gain weight</option>
                 </select>
             </div>
-            <div th:style="'color: #ff0000'" th:if="${#fields.hasErrors('goal')}" th:errors="*{goal}"></div>
 
             <button type="submit" class="btn btn-warning me-2">Calculate</button>
         </form>

@@ -13,16 +13,16 @@ public class UserConditionDTO {
     @Pattern(regexp = "MALE|FEMALE", message = "Please choose gender")
     private String gender;
 
-    @Min(value = 10, message = "you should be over 10 years old")
-    @Max(value = 90, message = "you should be under 90 years old")
+    @Min(value = 10, message = "You should be over 10 years old")
+    @Max(value = 90, message = "You should be under 90 years old")
     private byte age;
 
-    @Min(value = 130, message = "you should be over 130 cm")
-    @Max(value = 200, message = "you should be under 200 cm")
+    @Min(value = 130, message = "You should be over 130 cm")
+    @Max(value = 200, message = "You should be under 200 cm")
     private short height;
 
-    @Min(value = 40, message = "you should weight more than 40 kg")
-    @Max(value = 150, message = "you should weight less than 150 kg")
+    @Min(value = 40, message = "You should weight more than 40 kg")
+    @Max(value = 150, message = "You should weight less than 150 kg")
     private short weight;
 
     @Pattern(regexp = "MIN|AVGG|MAX", message = "Please choose intensity")

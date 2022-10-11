@@ -38,6 +38,8 @@ public class HomeController {
         try {
             UserConditionDTO userConditionDTO = gatewayClient.getUserCondition(id, authInfo.getAccessToken(), authInfo.getRefreshToken());
             model.addAttribute("setCondition", true);
+            model.addAttribute("condition", userConditionDTO);
+
         } catch (RuntimeException e) {
             model.addAttribute("userId", id);
             model.addAttribute("condition", new UserConditionDTO());
