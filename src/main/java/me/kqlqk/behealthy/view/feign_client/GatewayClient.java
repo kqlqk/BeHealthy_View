@@ -7,10 +7,7 @@ import me.kqlqk.behealthy.view.dto.auth.RegistrationDTO;
 import me.kqlqk.behealthy.view.dto.condition.UserConditionDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.*;
 
 @FeignClient(name = "Gateway")
 public interface GatewayClient {
@@ -25,4 +22,10 @@ public interface GatewayClient {
     UserConditionDTO getUserCondition(@PathVariable long id,
                                       @RequestHeader("Authorization_access") String accessToken,
                                       @RequestHeader("Authorization_refresh") String refreshToken);
+
+    @PostMapping("/api/v1/users/{id}/condition")
+    void createUserCondition(@PathVariable long id,
+                             @RequestBody UserConditionDTO userConditionDTO,
+                             @RequestHeader("Authorization_access") String accessToken,
+                             @RequestHeader("Authorization_refresh") String refreshToken);
 }

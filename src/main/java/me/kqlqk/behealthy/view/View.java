@@ -8,14 +8,14 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableFeignClients
-public class BeHealthyView extends SpringBootServletInitializer {
+public class View extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
-        SpringApplication.run(BeHealthyView.class, args);
+        SpringApplication.run(View.class, args);
     }
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        return builder.sources(BeHealthyView.class);
+        return builder.sources(View.class);
     }
 }

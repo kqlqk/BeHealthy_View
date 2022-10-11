@@ -1,6 +1,6 @@
 package annotations;
 
-import me.kqlqk.behealthy.view.BeHealthyView;
+import me.kqlqk.behealthy.view.View;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 
-@SpringBootTest(classes = BeHealthyView.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@SpringBootTest(classes = View.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @TestPropertySource("/test_application.properties")
 @Sql(value = {"/create_tables.sql", "/add_data.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 public @interface RepositoryTest {

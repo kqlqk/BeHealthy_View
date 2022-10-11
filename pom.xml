@@ -17,7 +17,7 @@
 
     <properties>
         <java.version>11</java.version>
-        <start-class>me.kqlqk.behealthy.view.BeHealthyView</start-class>
+        <start-class>me.kqlqk.behealthy.view.View</start-class>
     </properties>
 
     <dependencies>

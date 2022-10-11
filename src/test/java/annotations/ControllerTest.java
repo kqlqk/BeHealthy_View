@@ -1,6 +1,6 @@
 package annotations;
 
-import me.kqlqk.behealthy.view.BeHealthyView;
+import me.kqlqk.behealthy.view.View;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 
-@SpringBootTest(classes = BeHealthyView.class, webEnvironment = SpringBootTest.WebEnvironment.MOCK)
+@SpringBootTest(classes = View.class, webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @TestPropertySource("/test_application.properties")
 @Sql(value = {"/create_tables.sql", "/add_data.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @AutoConfigureMockMvc
