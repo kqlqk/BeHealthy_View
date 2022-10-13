@@ -34,7 +34,13 @@ public class GuestController {
     }
 
     @GetMapping
-    public String getMainPage() {
+    public String getMainPage(HttpServletRequest request) {
+        AuthInfo authInfo = authInfoService.getByRemoteAddr(request.getRemoteAddr());
+
+        if (authInfo != null) {
+            return "redirect:/me/" + authInfo.getUserId();
+        }
+
         return "guest/MainPage";
     }
 

@@ -31,6 +31,7 @@ public class KcalsCounterController {
 
     @GetMapping("/me/{id}/food")
     public String getDailyFood(@PathVariable long id, HttpServletRequest request, Model model) {
+        model.addAttribute("userId", id);
         AuthInfo authInfo = authInfoService.getByRemoteAddr(request.getRemoteAddr());
 
         if (id != authInfo.getUserId()) {
@@ -48,7 +49,6 @@ public class KcalsCounterController {
             ateKcals += dailyFoodDTO.getWeight() * dailyFoodDTO.getKcals() / 100;
         }
 
-        model.addAttribute("userId", id);
         model.addAttribute("dailyKcals", dailyKcals);
         model.addAttribute("dailyFood", dailyFood);
         model.addAttribute("newFood", new DailyFoodDTO());

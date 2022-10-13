@@ -29,6 +29,7 @@ public class HomeController {
 
     @GetMapping("/me/{id}")
     public String getCurrentUserPage(@PathVariable long id, Model model, HttpServletRequest request) {
+        model.addAttribute("userId", id);
         AuthInfo authInfo = authInfoService.getByRemoteAddr(request.getRemoteAddr());
 
         if (id != authInfo.getUserId()) {
@@ -41,7 +42,6 @@ public class HomeController {
             model.addAttribute("condition", userConditionDTO);
 
         } catch (RuntimeException e) {
-            model.addAttribute("userId", id);
             model.addAttribute("condition", new UserConditionDTO());
             model.addAttribute("setCondition", false);
         }
