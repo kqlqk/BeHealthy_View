@@ -42,8 +42,7 @@ public class KcalsCounterController {
         KcalsInfoDTO kcalsInfo = gatewayClient.getDailyKcals(id, authInfo.getAccessToken(), authInfo.getRefreshToken());
 
         short dailyKcals = (short) (kcalsInfo.getProtein() * 4 + kcalsInfo.getFat() * 9 + kcalsInfo.getCarb() * 4);
-
-        short ateKcals = 0;
+        int ateKcals = 0;
 
         for (DailyFoodDTO dailyFoodDTO : dailyFood) {
             ateKcals += dailyFoodDTO.getWeight() * dailyFoodDTO.getKcals() / 100;
@@ -64,6 +63,7 @@ public class KcalsCounterController {
                           Model model,
                           HttpServletRequest request) {
         AuthInfo authInfo = authInfoService.getByRemoteAddr(request.getRemoteAddr());
+
         if (id != authInfo.getUserId()) {
             return "redirect:/login";
         }
@@ -73,7 +73,7 @@ public class KcalsCounterController {
             KcalsInfoDTO kcalsInfo = gatewayClient.getDailyKcals(id, authInfo.getAccessToken(), authInfo.getRefreshToken());
 
             short dailyKcals = (short) (kcalsInfo.getProtein() * 4 + kcalsInfo.getFat() * 9 + kcalsInfo.getCarb() * 4);
-            short ateKcals = 0;
+            int ateKcals = 0;
 
             for (DailyFoodDTO element : dailyFood) {
                 ateKcals += element.getWeight() * element.getKcals() / 100;

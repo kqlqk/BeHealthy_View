@@ -59,7 +59,6 @@ public class AuthFilter extends OncePerRequestFilter {
         String refresh = tokens.get("refresh");
 
         if (!authenticationClient.validateRefreshTokenFromRequest("Bearer_" + refresh).isValid()) {
-            //TODO ADD MESSAGE
             response.sendRedirect("/login");
             return;
         }

@@ -25,7 +25,7 @@ public class UserConditionDTO {
     @Max(value = 150, message = "You should weight less than 150 kg")
     private short weight;
 
-    @Pattern(regexp = "MIN|AVGG|MAX", message = "Please choose intensity")
+    @Pattern(regexp = "MIN|AVG|MAX", message = "Please choose intensity")
     private String intensity;
 
     @Pattern(regexp = "LOSE|MAINTAIN|GAIN", message = "Please choose goal")

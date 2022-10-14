@@ -19,3 +19,10 @@ public class View extends SpringBootServletInitializer {
         return builder.sources(View.class);
     }
 }
+/*
+0 logout button instead sign in/out in header-authorize
+1 tests
+2 if userCondition not set, kcals counter don't access
+3 button edit condition
+4 button to kcals counter
+ */

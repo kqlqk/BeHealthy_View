@@ -15,14 +15,14 @@
         <p class="text-muted">Your actual condition</p>
     </div>
 
-    <section class="row w-100 p-3 d-flex justify-content-center pb-4  text-center h2">
+    <section class="row w-100 p-3 d-flex justify-content-center pb-4 text-center h2">
         <div class="fw-bold">
             <th:block th:switch="${condition.gender}">
                 <div th:case="'MALE'" th:text="'Gender: Male'"></div>
                 <div th:case="'FEMALE'" th:text="'Gender: Female'"></div>
             </th:block>
         </div>
-        <div class="fw-bold" th:text="${'Age: ' + condition.age}"></div>
+        <div class="fw-bold" th:text="${'Age: ' + condition.age + 'y'}"></div>
         <div class="fw-bold" th:text="${'Height: ' + condition.height + 'cm'}"></div>
         <div class="fw-bold" th:text="${'Weight: ' + condition.weight + 'kg'}"></div>
         <div class="fw-bold">
