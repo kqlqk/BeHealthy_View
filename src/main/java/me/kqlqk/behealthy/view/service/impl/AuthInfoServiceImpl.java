@@ -42,4 +42,15 @@ public class AuthInfoServiceImpl implements AuthInfoService {
         }
         authInfoRepository.save(authInfo);
     }
+
+    @Override
+    public void deleteByRemoteAddr(@NonNull String remoteAddr) {
+        AuthInfo authInfo = getByRemoteAddr(remoteAddr);
+
+        if (authInfo == null) {
+            return;
+        }
+
+        authInfoRepository.delete(authInfo);
+    }
 }

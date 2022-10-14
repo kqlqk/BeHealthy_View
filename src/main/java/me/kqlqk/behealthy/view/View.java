@@ -20,7 +20,6 @@ public class View extends SpringBootServletInitializer {
     }
 }
 /*
-0 logout button instead sign in/out in header-authorize
 1 tests
 2 if userCondition not set, kcals counter don't access
 3 button edit condition

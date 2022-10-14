@@ -12,4 +12,6 @@ public interface AuthInfoService {
     List<AuthInfo> getByUserId(long userId);
 
     void saveOrUpdate(AuthInfo authInfo);
+
+    void deleteByRemoteAddr(String remoteAddr);
 }

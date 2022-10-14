@@ -62,4 +62,15 @@ public class AuthInfoServiceTest {
         assertThat(authInfoService.getByRemoteAddr("123.213.123.1")).isNull();
         assertThat(authInfoService.getByRemoteAddr("123.213.123.2")).isNotNull();
     }
+
+    @Test
+    public void deleteByRemoteAddr_shouldDeleteRowInDb() {
+        int oldSize = authInfoRepository.findAll().size();
+
+        authInfoService.deleteByRemoteAddr("192.42.44.11");
+
+        int newSize = authInfoRepository.findAll().size();
+
+        assertThat(oldSize).isGreaterThan(newSize);
+    }
 }

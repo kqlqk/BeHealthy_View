@@ -75,4 +75,11 @@ public class HomeController {
 
         return "redirect:/me/" + id;
     }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        authInfoService.deleteByRemoteAddr(request.getRemoteAddr());
+
+        return "redirect:/";
+    }
 }
