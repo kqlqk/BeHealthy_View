@@ -20,8 +20,6 @@ public class View extends SpringBootServletInitializer {
     }
 }
 /*
-1 tests
-2 if userCondition not set, kcals counter don't access
 3 button edit condition
 4 button to kcals counter
  */

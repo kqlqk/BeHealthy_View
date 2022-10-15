@@ -38,6 +38,12 @@ public class KcalsCounterController {
             return "redirect:/login";
         }
 
+        try {
+            gatewayClient.getUserCondition(id, authInfo.getAccessToken(), authInfo.getRefreshToken());
+        } catch (RuntimeException e) {
+            return "redirect:/me/" + id;
+        }
+
         List<DailyFoodDTO> dailyFood = gatewayClient.getDailyFood(id, authInfo.getAccessToken(), authInfo.getRefreshToken());
         KcalsInfoDTO kcalsInfo = gatewayClient.getDailyKcals(id, authInfo.getAccessToken(), authInfo.getRefreshToken());
 
@@ -66,6 +72,12 @@ public class KcalsCounterController {
 
         if (id != authInfo.getUserId()) {
             return "redirect:/login";
+        }
+
+        try {
+            gatewayClient.getUserCondition(id, authInfo.getAccessToken(), authInfo.getRefreshToken());
+        } catch (RuntimeException e) {
+            return "redirect:/me/" + id;
         }
 
         if (bindingResult.hasErrors()) {
