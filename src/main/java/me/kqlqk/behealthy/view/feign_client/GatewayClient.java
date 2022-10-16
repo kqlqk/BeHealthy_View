@@ -33,6 +33,12 @@ public interface GatewayClient {
                              @RequestHeader("Authorization_access") String accessToken,
                              @RequestHeader("Authorization_refresh") String refreshToken);
 
+    @PutMapping("/api/v1/users/{id}/condition")
+    void updateUserCondition(@PathVariable long id,
+                             @RequestBody UserConditionDTO userConditionDTO,
+                             @RequestHeader("Authorization_access") String accessToken,
+                             @RequestHeader("Authorization_refresh") String refreshToken);
+
     @GetMapping("api/v1/users/{id}/daily_food")
     List<DailyFoodDTO> getDailyFood(@PathVariable long id,
                                     @RequestHeader("Authorization_access") String accessToken,

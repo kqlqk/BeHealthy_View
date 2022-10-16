@@ -7,7 +7,7 @@
 </head>
 
 <body>
-<header th:insert="header :: header-authorize"></header>
+<header th:insert="Header :: header-authorize"></header>
 
 <section class="w-100 p-3 d-flex justify-content-center pb-4">
     <form th:method="put" th:action="@{/me/{id}/food(id=${userId})}" th:object="${newFood}" style="width: 23rem;">

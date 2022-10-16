@@ -76,6 +76,56 @@ public class HomeController {
         return "redirect:/me/" + id;
     }
 
+
+    @GetMapping("/me/{id}/edit")
+    public String getEditPage(@PathVariable long id, Model model, HttpServletRequest request) {
+        model.addAttribute("userId", id);
+        AuthInfo authInfo = authInfoService.getByRemoteAddr(request.getRemoteAddr());
+
+        if (id != authInfo.getUserId()) {
+            return "redirect:/login";
+        }
+
+        UserConditionDTO userCondition;
+        try {
+            userCondition =
+                    gatewayClient.getUserCondition(id, authInfo.getAccessToken(), authInfo.getRefreshToken());
+        } catch (RuntimeException e) {
+            return "redirect:/me/" + id;
+        }
+
+        model.addAttribute("condition", userCondition);
+
+        return "user/EditUserConditionPage";
+    }
+
+    @PostMapping("/me/{id}/edit")
+    public String editUserCondition(@PathVariable long id,
+                                    @ModelAttribute("condition") @Valid UserConditionDTO userCondition,
+                                    BindingResult bindingResult,
+                                    Model model,
+                                    HttpServletRequest request) {
+        model.addAttribute("userId", id);
+        AuthInfo authInfo = authInfoService.getByRemoteAddr(request.getRemoteAddr());
+
+        if (id != authInfo.getUserId()) {
+            return "redirect:/login";
+        }
+
+        if (bindingResult.hasErrors()) {
+            return "user/EditUserConditionPage";
+        }
+
+        try {
+            gatewayClient.updateUserCondition(id, userCondition, authInfo.getAccessToken(), authInfo.getRefreshToken());
+        } catch (RuntimeException e) {
+            return "redirect:/me/" + id;
+        }
+
+
+        return "redirect:/me/" + id;
+    }
+
     @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
         authInfoService.deleteByRemoteAddr(request.getRemoteAddr());

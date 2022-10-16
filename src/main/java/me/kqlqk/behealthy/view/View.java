@@ -20,7 +20,6 @@ public class View extends SpringBootServletInitializer {
     }
 }
 /*
-2 spring cloud configuration
 3 button edit condition
 4 button to kcals counter
 5 jenkins ci/cd to aws

@@ -7,18 +7,19 @@
 </head>
 
 <body>
-<header th:insert="header :: header-authorize"></header>
+<header th:insert="Header :: header-authorize"></header>
 
 <div th:if="${setCondition == true}">
     <div class="text-center m-5">
         <h1 class="fw-bold">USER CONDITION</h1>
         <p class="text-muted">Your actual condition</p>
+        <a class="btn btn-outline-dark me-2" th:href="@{/me/{id}/edit(id=${userId})}">Click here to edit</a>
     </div>
 
-    <section class="row w-100 p-3 d-flex justify-content-center pb-4 text-center h2">
+    <section class="row w-100 d-flex justify-content-center pb-2 text-center h2">
         <div class="fw-bold">
             <th:block th:switch="${condition.gender}">
-                <div th:case="'MALE'" th:text="'Gender: Male'"></div>
+                <div th:case="'MALE'" th:text="'Gender: Male'">fff</div>
                 <div th:case="'FEMALE'" th:text="'Gender: Female'"></div>
             </th:block>
         </div>
@@ -40,6 +41,7 @@
             </th:block>
         </div>
     </section>
+
 
 </div>
 
@@ -111,7 +113,7 @@
                 </select>
             </div>
 
-            <button type="submit" class="btn btn-warning me-2">Calculate</button>
+            <button type="submit" class="btn btn-warning me-2">Set</button>
         </form>
     </section>
 
