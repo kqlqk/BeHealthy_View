@@ -16,7 +16,7 @@ public interface AuthenticationClient {
     @GetMapping("/api/v1/auth/validate_access_token")
     ValidateDTO validateAccessTokenFromRequest(@RequestHeader("Authorization_access") String accessToken);
 
-    @GetMapping("/api/v1//auth/validate_refresh_token")
+    @GetMapping("/api/v1/auth/validate_refresh_token")
     ValidateDTO validateRefreshTokenFromRequest(@RequestHeader("Authorization_refresh") String refreshToken);
 
     @GetMapping("/api/v1/auth/get_email_from_refresh_token")
