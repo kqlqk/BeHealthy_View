@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
 
-@FeignClient(name = "AuthenticationService")
+@FeignClient(name = "authenticationService")
 public interface AuthenticationClient {
 
     @GetMapping("/api/v1/auth/validate_access_token")

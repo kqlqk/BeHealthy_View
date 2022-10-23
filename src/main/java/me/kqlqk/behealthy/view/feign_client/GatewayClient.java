@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@FeignClient(name = "Gateway")
+@FeignClient(name = "gateway")
 public interface GatewayClient {
 
     @PostMapping("/api/v1/login")
