@@ -7,6 +7,7 @@ import me.kqlqk.behealthy.view.dto.auth.RegistrationDTO;
 import me.kqlqk.behealthy.view.dto.condition.DailyFoodDTO;
 import me.kqlqk.behealthy.view.dto.condition.KcalsInfoDTO;
 import me.kqlqk.behealthy.view.dto.condition.UserConditionDTO;
+import me.kqlqk.behealthy.view.dto.workout.WorkoutInfoDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -54,4 +55,15 @@ public interface GatewayClient {
                       @RequestBody DailyFoodDTO dailyFoodDTO,
                       @RequestHeader("Authorization_access") String accessToken,
                       @RequestHeader("Authorization_refresh") String refreshToken);
+
+    @GetMapping("/api/v1/users/{id}/workout")
+    List<WorkoutInfoDTO> getWorkouts(@PathVariable long id,
+                                     @RequestHeader("Authorization_access") String accessToken,
+                                     @RequestHeader("Authorization_refresh") String refreshToken);
+
+    @PostMapping("/api/v1/users/{id}/workout")
+    void createWorkout(@PathVariable long id,
+                       @RequestBody WorkoutInfoDTO workoutInfoDTO,
+                       @RequestHeader("Authorization_access") String accessToken,
+                       @RequestHeader("Authorization_refresh") String refreshToken);
 }

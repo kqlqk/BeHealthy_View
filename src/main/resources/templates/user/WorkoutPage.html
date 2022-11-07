@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Workout</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+</head>
+
+<body>
+<header th:insert="Header :: header-authorize"></header>
+
+<div th:if="${setWorkout == true}">
+    <div class="text-center m-5">
+        <h1 class="fw-bold">WORKOUTS</h1>
+        <a class="btn btn-outline-dark me-2" th:href="@{/me/{id}/edit(id=${userId})}">Click here to edit</a>
+    </div>
+
+    <section class="pb-2 text-center container">
+        <th:block th:switch="${workouts.get(0).workoutsPerWeek}">
+
+            <h1>1 Day</h1><br/>
+            <div class="row row-cols-1 row-cols-md-4 g-4">
+                <div style="white-space: pre-line" th:each="workoutDay1 : ${day1workouts}">
+                    <div class="col card">
+                        <div class="card-body">
+                            <h2 class="card-title" th:text="${workoutDay1.exercise.name.toUpperCase()}"></h2>
+                            <h3 class="card-text fw-light" th:text="${workoutDay1.exercise.description}"></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br/>
+            <h2>2 Day</h2><br/>
+            <div style="white-space: pre-line" class="row row-cols-1 row-cols-md-4 g-4">
+                <div th:each="workoutDay2 : ${day2workouts}">
+                    <div class="col card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h2 class="card-title" th:text="${workoutDay2.exercise.name.toUpperCase()}"></h2>
+                            <h3 class="card-text fw-light" th:text="${workoutDay2.exercise.description}"></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div th:case="'THREE'">
+                <br/>
+                <h2>3 Day</h2><br/>
+                <div style="white-space: pre-line" class="row row-cols-1 row-cols-md-4 g-4">
+                    <div th:each="workoutDay3 : ${day3workouts}">
+                        <div class="col card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h2 class="card-title" th:text="${workoutDay3.exercise.name.toUpperCase()}"></h2>
+                                <h3 class="card-text fw-light" th:text="${workoutDay3.exercise.description}"></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div th:case="FOUR">
+                <br/>
+                <h2>3 Day</h2><br/>
+                <div style="white-space: pre-line" class="row row-cols-1 row-cols-md-4 g-4">
+                    <div th:each="workoutDay3 : ${day3workouts}">
+                        <div class="col card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h2 class="card-title" th:text="${workoutDay3.exercise.name.toUpperCase()}"></h2>
+                                <h3 class="card-text fw-light" th:text="${workoutDay3.exercise.description}"></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br/>
+                <h2>4 Day</h2><br/>
+                <div style="white-space: pre-line" class="row row-cols-1 row-cols-md-4 g-4">
+                    <div th:each="workoutDay4 : ${day4workouts}">
+                        <div class="col card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h2 class="card-title" th:text="${workoutDay4.exercise.name.toUpperCase()}"></h2>
+                                <h3 class="card-text fw-light" th:text="${workoutDay4.exercise.description}"></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </th:block>
+    </section>
+
+</div>
+
+<div th:if="${setWorkout == false}">
+    <div class="text-center m-5">
+        <h1 class="fw-bold">WORKOUTS</h1>
+        <p class="text-muted">Please add your actual information!</p>
+    </div>
+
+    <section class="row w-100 d-flex justify-content-center pb-2 text-center">
+        <form th:method="post" th:action="@{/me/{id}/workout(id=${userId})}" th:object="${workout}"
+              style="width: 23rem;">
+            <input type="hidden" name="id" th:value="0">
+
+            <div class="form mb-4">
+                <label class="h3" for="workoutsPerWeek">How many times a week can you go to the gym?</label>
+                <select class="form-select" th:field="*{workoutsPerWeek}" id="workoutsPerWeek">
+                    <option th:value="TWO">2</option>
+                    <option th:value="THREE" selected>3</option>
+                    <option th:value="FOUR">4</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn-lg btn-warning me-2">Set</button>
+        </form>
+    </section>
+</div>
+
+
+</body>
+</html>
