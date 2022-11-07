@@ -66,4 +66,10 @@ public interface GatewayClient {
                        @RequestBody WorkoutInfoDTO workoutInfoDTO,
                        @RequestHeader("Authorization_access") String accessToken,
                        @RequestHeader("Authorization_refresh") String refreshToken);
+
+    @PutMapping("/api/v1/users/{id}/workout")
+    void updateWorkout(@PathVariable long id,
+                       @RequestBody WorkoutInfoDTO workoutInfoDTO,
+                       @RequestHeader("Authorization_access") String accessToken,
+                       @RequestHeader("Authorization_refresh") String refreshToken);
 }

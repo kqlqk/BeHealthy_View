@@ -96,4 +96,45 @@ public class WorkoutController {
         return "redirect:/me/" + id + "/workout";
 
     }
+
+    @GetMapping("/me/{id}/workout/edit")
+    public String getEditPage(@PathVariable long id, Model model, HttpServletRequest request) {
+        model.addAttribute("userId", id);
+        AuthInfo authInfo = authInfoService.getByRemoteAddr(request.getRemoteAddr());
+
+        if (id != authInfo.getUserId()) {
+            return "redirect:/login";
+        }
+
+        try {
+            gatewayClient.getWorkouts(id, authInfo.getAccessToken(), authInfo.getRefreshToken());
+        } catch (RuntimeException e) {
+            return "redirect:/me/" + id + "/workout";
+        }
+
+        model.addAttribute("workout", new WorkoutInfoDTO());
+
+        return "user/EditWorkoutPage";
+    }
+
+    @PostMapping("/me/{id}/workout/edit")
+    public String updateWorkout(@PathVariable long id,
+                                @ModelAttribute("workout") WorkoutInfoDTO workoutInfoDTO,
+                                HttpServletRequest request,
+                                Model model) {
+        model.addAttribute("userId", id);
+        AuthInfo authInfo = authInfoService.getByRemoteAddr(request.getRemoteAddr());
+
+        if (id != authInfo.getUserId()) {
+            return "redirect:/login";
+        }
+
+        try {
+            gatewayClient.updateWorkout(id, workoutInfoDTO, authInfo.getAccessToken(), authInfo.getRefreshToken());
+        } catch (RuntimeException e) {
+            return "redirect:/me/" + id + "/workout";
+        }
+
+        return "redirect:/me/" + id + "/workout";
+    }
 }
