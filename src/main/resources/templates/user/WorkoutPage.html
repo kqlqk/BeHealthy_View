@@ -12,6 +12,8 @@
 <div th:if="${setWorkout == true}">
     <div class="text-center m-5">
         <h1 class="fw-bold">WORKOUTS</h1>
+        <p class="text-muted">You should find the right weight with which you can perform 8 reps of 4 sets.<br/>
+            If you can already do 10 reps, increase the weight.</p>
         <a class="btn btn-outline-dark me-2" th:href="@{/me/{id}/workout/edit(id=${userId})}">Click here to edit</a>
     </div>
 
