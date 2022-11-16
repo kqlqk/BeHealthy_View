@@ -40,7 +40,7 @@ public interface GatewayClient {
                              @RequestHeader("Authorization_access") String accessToken,
                              @RequestHeader("Authorization_refresh") String refreshToken);
 
-    @GetMapping("api/v1/users/{id}/daily_food")
+    @GetMapping("api/v1/users/{id}/food")
     List<DailyFoodDTO> getDailyFood(@PathVariable long id,
                                     @RequestHeader("Authorization_access") String accessToken,
                                     @RequestHeader("Authorization_refresh") String refreshToken);
@@ -50,7 +50,7 @@ public interface GatewayClient {
                                @RequestHeader("Authorization_access") String accessToken,
                                @RequestHeader("Authorization_refresh") String refreshToken);
 
-    @PostMapping("/api/v1/users/{id}/daily_food")
+    @PostMapping("/api/v1/users/{id}/food")
     void addDailyFood(@PathVariable long id,
                       @RequestBody DailyFoodDTO dailyFoodDTO,
                       @RequestHeader("Authorization_access") String accessToken,
