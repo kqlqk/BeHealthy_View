@@ -35,7 +35,7 @@ public class GuestControllerTest {
 
     @Test
     public void getRegistrationPage_shouldReturnRegistrationPage() throws Exception {
-        mockMvc.perform(get("/login"))
+        mockMvc.perform(get("/registration"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Sign up")));
