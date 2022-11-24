@@ -3,8 +3,6 @@ package me.kqlqk.behealthy.view.controller;
 import me.kqlqk.behealthy.view.dto.condition.DailyFoodDTO;
 import me.kqlqk.behealthy.view.dto.condition.KcalsInfoDTO;
 import me.kqlqk.behealthy.view.feign_client.GatewayClient;
-import me.kqlqk.behealthy.view.model.AuthInfo;
-import me.kqlqk.behealthy.view.service.AuthInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,38 +12,30 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
 @Controller
 public class KcalsCounterController {
     private final GatewayClient gatewayClient;
-    private final AuthInfoService authInfoService;
 
     @Autowired
-    public KcalsCounterController(GatewayClient gatewayClient, AuthInfoService authInfoService) {
+    public KcalsCounterController(GatewayClient gatewayClient) {
         this.gatewayClient = gatewayClient;
-        this.authInfoService = authInfoService;
     }
 
     @GetMapping("/me/{id}/food")
-    public String getDailyFood(@PathVariable long id, HttpServletRequest request, Model model) {
+    public String getDailyFood(@PathVariable long id, Model model) {
         model.addAttribute("userId", id);
-        AuthInfo authInfo = authInfoService.getByRemoteAddr(request.getRemoteAddr());
-
-        if (id != authInfo.getUserId()) {
-            return "redirect:/login";
-        }
 
         try {
-            gatewayClient.getUserCondition(id, authInfo.getAccessToken(), authInfo.getRefreshToken());
+            gatewayClient.getUserCondition(id);
         } catch (RuntimeException e) {
             return "redirect:/me/" + id;
         }
 
-        List<DailyFoodDTO> dailyFood = gatewayClient.getDailyFood(id, authInfo.getAccessToken(), authInfo.getRefreshToken());
-        KcalsInfoDTO kcalsInfo = gatewayClient.getDailyKcals(id, authInfo.getAccessToken(), authInfo.getRefreshToken());
+        List<DailyFoodDTO> dailyFood = gatewayClient.getDailyFood(id);
+        KcalsInfoDTO kcalsInfo = gatewayClient.getDailyKcals(id);
 
         short dailyKcals = (short) (kcalsInfo.getProtein() * 4 + kcalsInfo.getFat() * 9 + kcalsInfo.getCarb() * 4);
         int ateKcals = 0;
@@ -66,23 +56,16 @@ public class KcalsCounterController {
     public String addFood(@PathVariable long id,
                           @ModelAttribute("newFood") @Valid DailyFoodDTO dailyFoodDTO,
                           BindingResult bindingResult,
-                          Model model,
-                          HttpServletRequest request) {
-        AuthInfo authInfo = authInfoService.getByRemoteAddr(request.getRemoteAddr());
-
-        if (id != authInfo.getUserId()) {
-            return "redirect:/login";
-        }
-
+                          Model model) {
         try {
-            gatewayClient.getUserCondition(id, authInfo.getAccessToken(), authInfo.getRefreshToken());
+            gatewayClient.getUserCondition(id);
         } catch (RuntimeException e) {
             return "redirect:/me/" + id;
         }
 
         if (bindingResult.hasErrors()) {
-            List<DailyFoodDTO> dailyFood = gatewayClient.getDailyFood(id, authInfo.getAccessToken(), authInfo.getRefreshToken());
-            KcalsInfoDTO kcalsInfo = gatewayClient.getDailyKcals(id, authInfo.getAccessToken(), authInfo.getRefreshToken());
+            List<DailyFoodDTO> dailyFood = gatewayClient.getDailyFood(id);
+            KcalsInfoDTO kcalsInfo = gatewayClient.getDailyKcals(id);
 
             short dailyKcals = (short) (kcalsInfo.getProtein() * 4 + kcalsInfo.getFat() * 9 + kcalsInfo.getCarb() * 4);
             int ateKcals = 0;
@@ -98,7 +81,7 @@ public class KcalsCounterController {
         }
 
         dailyFoodDTO.setUserId(id);
-        gatewayClient.addDailyFood(id, dailyFoodDTO, authInfo.getAccessToken(), authInfo.getRefreshToken());
+        gatewayClient.addDailyFood(id, dailyFoodDTO);
 
         return "redirect:/me/" + id + "/food";
     }

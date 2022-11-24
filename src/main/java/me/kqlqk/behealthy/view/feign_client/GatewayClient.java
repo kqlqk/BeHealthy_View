@@ -24,52 +24,34 @@ public interface GatewayClient {
     ResponseEntity<?> registration(@Param RegistrationDTO registrationDTO);
 
     @GetMapping("/api/v1/users/{id}/condition")
-    UserConditionDTO getUserCondition(@PathVariable long id,
-                                      @RequestHeader("Authorization_access") String accessToken,
-                                      @RequestHeader("Authorization_refresh") String refreshToken);
+    UserConditionDTO getUserCondition(@PathVariable long id);
 
     @PostMapping("/api/v1/users/{id}/condition")
     void createUserCondition(@PathVariable long id,
-                             @RequestBody UserConditionDTO userConditionDTO,
-                             @RequestHeader("Authorization_access") String accessToken,
-                             @RequestHeader("Authorization_refresh") String refreshToken);
+                             @RequestBody UserConditionDTO userConditionDTO);
 
     @PutMapping("/api/v1/users/{id}/condition")
     void updateUserCondition(@PathVariable long id,
-                             @RequestBody UserConditionDTO userConditionDTO,
-                             @RequestHeader("Authorization_access") String accessToken,
-                             @RequestHeader("Authorization_refresh") String refreshToken);
+                             @RequestBody UserConditionDTO userConditionDTO);
 
     @GetMapping("api/v1/users/{id}/food")
-    List<DailyFoodDTO> getDailyFood(@PathVariable long id,
-                                    @RequestHeader("Authorization_access") String accessToken,
-                                    @RequestHeader("Authorization_refresh") String refreshToken);
+    List<DailyFoodDTO> getDailyFood(@PathVariable long id);
 
     @GetMapping("api/v1/users/{id}/kcals")
-    KcalsInfoDTO getDailyKcals(@PathVariable long id,
-                               @RequestHeader("Authorization_access") String accessToken,
-                               @RequestHeader("Authorization_refresh") String refreshToken);
+    KcalsInfoDTO getDailyKcals(@PathVariable long id);
 
     @PostMapping("/api/v1/users/{id}/food")
     void addDailyFood(@PathVariable long id,
-                      @RequestBody DailyFoodDTO dailyFoodDTO,
-                      @RequestHeader("Authorization_access") String accessToken,
-                      @RequestHeader("Authorization_refresh") String refreshToken);
+                      @RequestBody DailyFoodDTO dailyFoodDTO);
 
     @GetMapping("/api/v1/users/{id}/workout")
-    List<WorkoutInfoDTO> getWorkouts(@PathVariable long id,
-                                     @RequestHeader("Authorization_access") String accessToken,
-                                     @RequestHeader("Authorization_refresh") String refreshToken);
+    List<WorkoutInfoDTO> getWorkouts(@PathVariable long id);
 
     @PostMapping("/api/v1/users/{id}/workout")
     void createWorkout(@PathVariable long id,
-                       @RequestBody WorkoutInfoDTO workoutInfoDTO,
-                       @RequestHeader("Authorization_access") String accessToken,
-                       @RequestHeader("Authorization_refresh") String refreshToken);
+                       @RequestBody WorkoutInfoDTO workoutInfoDTO);
 
     @PutMapping("/api/v1/users/{id}/workout")
     void updateWorkout(@PathVariable long id,
-                       @RequestBody WorkoutInfoDTO workoutInfoDTO,
-                       @RequestHeader("Authorization_access") String accessToken,
-                       @RequestHeader("Authorization_refresh") String refreshToken);
+                       @RequestBody WorkoutInfoDTO workoutInfoDTO);
 }

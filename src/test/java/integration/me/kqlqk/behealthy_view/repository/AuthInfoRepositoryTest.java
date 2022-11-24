@@ -1,8 +1,6 @@
 package integration.me.kqlqk.behealthy_view.repository;
 
 import annotations.RepositoryTest;
-import me.kqlqk.behealthy.view.model.AuthInfo;
-import me.kqlqk.behealthy.view.repository.AuthInfoRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
